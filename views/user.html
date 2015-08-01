@@ -1,0 +1,63 @@
+<!doctype html>
+<html ng-app="app">
+
+<head>
+	<!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/public/css/styles.css" />
+
+    <!-- Custom Fonts -->
+    <link href="/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+	<title>PaddleLab</title>
+	<link rel="stylesheet" type="text/css" href="/public/css/styles.css" />
+</head>
+
+<body>
+	<div class="container" ng-controller="usersController">
+	    <div class="row">
+	        <div class="col-md-4 col-md-offset-4">
+	            <div class="login-panel panel panel-default">
+	                <div class="panel-heading">
+	                    <h3 class="panel-title">User profile</h3>
+	                </div>
+	                <div class="panel-body">
+	                    <form role="form" method="POST" action="/user/update">
+                    	    <fieldset>
+	                            <div class="form-group">
+	                            	<label>Username</label>
+	                                <input class="form-control" name="username" type="text" ng-model="user.username" disabled>
+	                            </div>
+	                            <div class="form-group">
+	                                <label>Email</label>
+	                                <input class="form-control" name="email" type="email" ng-model="user.email">                       
+	                            </div>
+	                            <div class="form-group">
+	                            	<label>Colour</label>
+	                                <input class="form-control" name="color" type="text" ng-model="user.color">
+	                            </div>
+	                            <div class="form-group">
+	                            	<label>Age</label>
+	                                <input class="form-control" name="age" type="text" ng-model="user.age">
+	                            </div>
+	                            <input type="submit" class="btn btn-success" value="Save"> 
+                        	</fieldset>
+						</form>
+						<form method="POST" action="/user/delete">
+							<input type="submit" class="btn btn-danger" value="Delete">
+						</form>
+						<hr><%= msg %>
+						<hr>{{error}}
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+	<script src="/public/js/app.js"></script>
+
+</body>
+</html>

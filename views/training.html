@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A web application to analyse performance information for kayak paddlers">
+    <meta name="author" content="Andreas Odysseos">
+    <link rel="icon" href="assets/icon/favicon.ico">
+    <title>PaddleLab</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css" />
+
+    <!-- MetisMenu CSS -->
+    <link rel="stylesheet" type="text/css" href="/lib/MetisMenu/dist/metisMenu.min.css" />
+
+    <!-- Timeline CSS -->
+	<link rel="stylesheet" type="text/css" href="/public/css/timeline.css" />
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="/public/css/styles.css" />
+
+	<!-- Custom Fonts -->
+    <link rel="stylesheet" type="text/css" href="/lib/Font-Awesome/css/font-awesome.min.css" />
+
+    <!-- AngularJS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+    <script src="/public/js/app.js"></script>
+    <script src="/public/js/controllers/trainingFormController.js"></script>
+
+</head>
+
+<body>   
+
+ <div id="wrapper">
+ <%= msg %>
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">PaddleLab</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> <%= user %> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="/user/profile"><i class="fa fa-user fa-fw"></i> Profile</a>
+                    </li>
+                    <li><a href="/user"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="/training"><i class="fa fa-edit fa-fw"></i>New training</a>
+                        </li>
+                        <li>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="/training/all"><i class="fa fa-edit fa-fw"></i>Trainings</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Upload your training file</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+            <div ng-controller="trainingsFormController" class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            New Training
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <form role="form" method="POST" enctype="multipart/form-data" action="/training/add" >
+
+                                        <div class="form-group">
+                                            <label>File input</label>
+                                            <input type="file" name="trainingFile" id="trainingFile">
+                                        </div>
+                                                               
+                                        <div class="form-group">
+                                            <p class="form-control-static">Monday, 15 July 2014, 13:15:10</p>
+                                            <div class="well well-lg">Training preview...</div>
+                                        </div>
+                               
+                                        <div class="form-group">
+                                            <label>Select training style</label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="style" id="style" value="intervals"> Time Intervals
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="style" id="style" value="sessions"> Stroke Sessions
+                                            </label>
+                                            <label class="radio-inline">        
+                                                <input type="radio" name="style" id="style" value="tempo"> Tempo
+                                            </label>
+                                        </div>
+
+                                        
+                                        <!-- Time Intervals panel -->
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading" id="intervals-container">
+                                                        <b>Time Intervals</b>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group input-group">
+                                                                    <span class="input-group-addon">Selects number of active intervals</span>
+                                                                    <select class="form-control">
+                                                                        <option ng-repeat="s in sessions" value="{{s}}">{{s}}</option>
+                                                                    </select>
+                                                                </div> 
+
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="input-group-addon">Duration</span>
+                                                                            <select class="form-control" >
+                                                                                <option ng-repeat="d in durations" value="{{d.value}}">{{d.time}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.col-lg-12 -->
+
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="input-group-addon">Rest</span>
+                                                                            <select class="form-control">
+                                                                                <option ng-repeat="d in durations" value="{{d.value}}">{{d.time}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.col-lg-12 -->
+                                                                </div>
+                                                                <!-- /.row (nested) --> 
+
+                                                            </div>
+                                                            <!-- /.col-lg-12 -->
+                                                        </div>
+                                                        <!-- /.row (nested) -->
+                                                    </div>    
+                                                    <!-- /.panel-body -->
+                                                </div>
+                                                <!-- /.panel -->
+                                            </div>
+                                            <!-- /.col-lg-6 -->
+
+                                            <!-- Stroke Sessions panel -->
+                                            <div class="col-lg-6">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading" id="intervals-container">
+                                                        <b>Stroke Sessions</b>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group input-group">
+                                                                    <span class="input-group-addon">Selects number of active stroke sessions</span>
+                                                                    <select class="form-control">
+                                                                        <option ng-repeat="s in sessions" value="{{s}}">{{s}}</option>
+                                                                    </select>
+                                                                </div> 
+
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="input-group-addon">Duration</span>
+                                                                            <select class="form-control">
+                                                                                <option ng-repeat="s in strokes" value="{{s}}">{{s}}</option>
+                                                                            </select>
+                                                                            <span class="input-group-addon">Strokes</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.col-lg-12 -->
+
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="input-group-addon">Rest</span>
+                                                                            <select class="form-control">
+                                                                                <option ng-repeat="s in strokes" value="{{s}}">{{s}}</option>
+                                                                            </select>
+                                                                            <span class="input-group-addon">Strokes</span>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.col-lg-12 -->
+                                                                </div>
+                                                                <!-- /.row (nested) --> 
+
+                                                            </div>
+                                                            <!-- /.col-lg-12 -->
+                                                        </div>
+                                                        <!-- /.row (nested) -->
+                                                    </div>    
+                                                    <!-- /.panel-body -->
+                                                </div>
+                                                <!-- /.panel -->
+                                            </div>
+                                            <!-- /.col-lg-12 -->
+                                        </div>
+                                        <!-- /.row -->
+                                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Save">     
+                                        <button type="reset" class="btn btn-default btn-lg btn-block" style="float: right;">Reset Button</button>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-12 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->   
+
+    <!-- jQuery -->
+    <script src="/lib/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/public/js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/lib/MetisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/public/js/admin.js"></script>
+
+</body>
+</html>
